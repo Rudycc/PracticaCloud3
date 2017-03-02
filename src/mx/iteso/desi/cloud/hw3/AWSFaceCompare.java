@@ -48,14 +48,18 @@ public class AWSFaceCompare {
         S3Utils s3 = new S3Utils(accessKey,secretKey,region,srcBucket);
         List<String> names = s3.listFiles();
         for(String name : names) {
+            
             if(!name.endsWith(".jpg")) {
                 continue;
             }
             
+            System.out.println("Comparing with: "+name);
+            
             CompareFacesRequest compareFaceReq = new CompareFacesRequest()
                 .withSourceImage(new Image().withBytes(imageBuffer))
                 .withTargetImage(new Image().withS3Object(
-                    new S3Object().withBucket(srcBucket).withName(name)));
+                    new S3Object().withBucket(srcBucket).withName(name)))
+                .withSimilarityThreshold(75F);
             
             CompareFacesResult result = arek.compareFaces(compareFaceReq);
             for(CompareFacesMatch match : result.getFaceMatches()) {

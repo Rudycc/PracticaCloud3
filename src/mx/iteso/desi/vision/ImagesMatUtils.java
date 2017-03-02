@@ -13,7 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
+
+
 
 /**
  *
@@ -62,7 +64,7 @@ public class ImagesMatUtils {
     public static InputStream MatToInputStream(Mat mat) {
         InputStream ret = null;
         MatOfByte matOfByte = new MatOfByte();
-        Highgui.imencode(".jpg", mat, matOfByte);
+        Imgcodecs.imencode(".jpg", mat, matOfByte);
         byte[] byteArray = matOfByte.toArray();
 
         ret = new ByteArrayInputStream(byteArray);

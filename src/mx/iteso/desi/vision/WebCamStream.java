@@ -8,8 +8,8 @@ package mx.iteso.desi.vision;
 import javax.swing.JPanel;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
-import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
 public class WebCamStream {
 
