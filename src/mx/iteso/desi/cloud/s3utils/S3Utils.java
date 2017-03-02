@@ -13,7 +13,10 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -36,6 +39,16 @@ public class S3Utils {
         PutObjectRequest por = new PutObjectRequest(this.bucket,key,in,meta);
                 
         s3.putObject(por);
+    }
+    
+    public List<String> listFiles() {
+        List<String> ret = new ArrayList<>();
+        
+        for(S3ObjectSummary o : this.s3.listObjects(this.bucket).getObjectSummaries()) {
+            ret.add(o.getKey());
+        }
+        
+        return ret;
     }
         
 }

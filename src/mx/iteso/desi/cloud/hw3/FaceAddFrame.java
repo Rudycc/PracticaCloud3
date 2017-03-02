@@ -125,12 +125,14 @@ public class FaceAddFrame extends javax.swing.JFrame {
 
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
         InputStream photoStream = ImagesMatUtils.MatToInputStream(lastFrame);
+        
         long length = 0;
         try {
             length = photoStream.available();
         } catch (IOException ex) {
             Logger.getLogger(FaceAddFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         S3Utils s3 = new S3Utils(Config.accessKeyID, Config.secretAccessKey, Config.amazonRegion, Config.srcBucket);
         s3.addFile(this.nameTextField.getText()+".jpg", photoStream, length);
         System.out.println("Carga terminado("+length+")...");
