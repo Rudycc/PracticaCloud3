@@ -1,11 +1,5 @@
 package mx.iteso.desi.cloud.hw3;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import mx.iteso.desi.vision.ImagesMatUtils;
 import mx.iteso.desi.vision.WebCamStream;
 import org.opencv.core.Mat;
 
@@ -97,19 +91,8 @@ public class FaceAuthFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_authButtonActionPerformed
 
     private Face doAuthLogic() {
-        AWSFaceCompare awsFaceCompare = new AWSFaceCompare(Config.accessKeyID, Config.secretAccessKey, Config.amazonRegion,Config.srcBucket);
-        InputStream photoStream = ImagesMatUtils.MatToInputStream(lastFrame);
+        // TODO
         Face face = null;
-        
-        try {
-            ByteBuffer ret;
-            byte[] b  = new byte[photoStream.available()];
-            photoStream.read(b);
-            ret = ByteBuffer.wrap(b);
-            face = awsFaceCompare.compare(ret);
-        } catch (IOException ex) {
-            Logger.getLogger(FaceAuthFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         return face;
     }

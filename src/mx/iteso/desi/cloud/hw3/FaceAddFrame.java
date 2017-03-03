@@ -1,11 +1,5 @@
 package mx.iteso.desi.cloud.hw3;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import mx.iteso.desi.cloud.s3utils.S3Utils;
-import mx.iteso.desi.vision.ImagesMatUtils;
 import mx.iteso.desi.vision.WebCamStream;
 import org.opencv.core.Mat;
 
@@ -111,32 +105,15 @@ public class FaceAddFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        webCam.startStream(this.photoPanel);
-        this.stopButton.setEnabled(true);
-        this.startButton.setEnabled(false);
+        // TODO
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        this.lastFrame = webCam.stopStream();
-        this.stopButton.setEnabled(false);
-        this.nameTextField.setEnabled(true);
-        this.uploadButton.setEnabled(true);
+        // TODO
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
-        InputStream photoStream = ImagesMatUtils.MatToInputStream(lastFrame);
-        
-        long length = 0;
-        try {
-            length = photoStream.available();
-        } catch (IOException ex) {
-            Logger.getLogger(FaceAddFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        S3Utils s3 = new S3Utils(Config.accessKeyID, Config.secretAccessKey, Config.amazonRegion, Config.srcBucket);
-        s3.addFile(this.nameTextField.getText()+".jpg", photoStream, length);
-        System.out.println("Carga terminado("+length+")...");
-        System.exit(0);
+        // TODO
     }//GEN-LAST:event_uploadButtonActionPerformed
 
     private void closeWindow(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeWindow
