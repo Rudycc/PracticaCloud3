@@ -12,10 +12,10 @@ import com.amazonaws.regions.Regions;
  * @author parres
  */
 public class Config {
-  public static final String accessKeyID = "AKIAJS27DMFDGQYVRX7A";
-  public static final String secretAccessKey = "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";
+  public static final String accessKeyID = "";
+  public static final String secretAccessKey = "";
   public static final Regions amazonRegion = Regions.US_WEST_2;
   
-  public static final String srcBucket = "aparres-fotos-src";
+  public static final String srcBucket = "";
       
 }
