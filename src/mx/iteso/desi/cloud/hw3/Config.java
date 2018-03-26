@@ -12,8 +12,6 @@ import com.amazonaws.regions.Regions;
  * @author parres
  */
 public class Config {
-  public static final String accessKeyID = "";
-  public static final String secretAccessKey = "";
   public static final Regions amazonRegion = Regions.US_WEST_2;
   
   public static final String srcBucket = "";
