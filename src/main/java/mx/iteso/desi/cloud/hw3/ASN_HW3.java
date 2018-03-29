@@ -18,7 +18,7 @@ public class ASN_HW3 {
     
     public static void main(String[] args) {
  
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.load("/usr/local/Cellar/opencv/3.4.1_2/share/OpenCV/java/libopencv_java341.dylib");
         
         ASN_HW3 self = new ASN_HW3();
  

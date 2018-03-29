@@ -1,0 +1,1 @@
+mvn clean && mvn compile && mvn package && java -Djava.library.path="/usr/local/Cellar/opencv/3.4.1_2/share/OpenCV/java" -jar target/ASN_LP3-1.0-SNAPSHOT.jar -add
