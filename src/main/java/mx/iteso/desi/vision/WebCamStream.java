@@ -81,7 +81,7 @@ public class WebCamStream {
     
     public Mat stopStream() {
         webcamTh.runnable = false;
-        this.webSource.release();
+        //this.webSource.release();
         return frame.clone();
     }
 

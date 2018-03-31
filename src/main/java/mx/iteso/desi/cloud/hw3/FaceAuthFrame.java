@@ -1,7 +1,14 @@
 package mx.iteso.desi.cloud.hw3;
 
+import mx.iteso.desi.vision.ImagesMatUtils;
 import mx.iteso.desi.vision.WebCamStream;
+import com.amazonaws.util.IOUtils;
+
 import org.opencv.core.Mat;
+
+import java.nio.ByteBuffer;
+
+import com.amazonaws.regions.Regions;
 
 public class FaceAuthFrame extends javax.swing.JFrame {
 
@@ -93,7 +100,12 @@ public class FaceAuthFrame extends javax.swing.JFrame {
     private Face doAuthLogic() {
         // TODO
         Face face = null;
-        
+        AWSFaceCompare awsFaceCompare = new AWSFaceCompare("", "", Regions.US_WEST_2, "rodolfo-carrillo-photos");
+        try {
+            face = awsFaceCompare.compare(ByteBuffer.wrap(IOUtils.toByteArray(ImagesMatUtils.MatToInputStream(this.lastFrame))));
+        } catch (Exception e) {
+            System.err.println(e);
+        }
         return face;
     }
     

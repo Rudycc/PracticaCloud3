@@ -1,9 +1,21 @@
 package mx.iteso.desi.cloud.hw3;
 
+import mx.iteso.desi.vision.ImagesMatUtils;
 import mx.iteso.desi.vision.WebCamStream;
 import org.opencv.core.Mat;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.regions.Regions;
 
 public class FaceAddFrame extends javax.swing.JFrame {
+    final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_WEST_2).build();
 
     WebCamStream webCam;
     Mat lastFrame;
@@ -105,15 +117,38 @@ public class FaceAddFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        // TODO
+        webCam.startStream(this.photoPanel);
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        // TODO
+        this.lastFrame = webCam.stopStream();
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
+        uploadButton.setEnabled(true);
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
-        // TODO
+        if (!s3.doesBucketExist("rodolfo-carrillo-photos")) {
+            try {
+                s3.createBucket("rodolfo-carrillo-photos");
+            } catch (AmazonS3Exception e) {
+                System.err.println(e.getErrorMessage());
+            }
+        }
+        try {
+            InputStream byteArrayInputStream = ImagesMatUtils.MatToInputStream(this.lastFrame);
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentLength(byteArrayInputStream.available());
+            PutObjectRequest putObjectRequest = new PutObjectRequest("rodolfo-carrillo-photos", this.nameTextField.getText(), byteArrayInputStream, metadata);
+            s3.putObject(putObjectRequest);
+            this.uploadButton.setEnabled(false);
+            this.nameTextField.setText("");
+            this.lastFrame = null;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }//GEN-LAST:event_uploadButtonActionPerformed
 
     private void closeWindow(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeWindow
